@@ -2,7 +2,7 @@
 
 // GPIO
 
-#define IR_led 2 // pin D1
+#define IR_led 2 // pin D2
 #define RED_led 3
 #define LDR A0 // pin A0
 
@@ -28,26 +28,35 @@ void loop() {
 
   // get reading for RED:
   digitalWrite(3, HIGH);
-  delay(25);            //wait
+  delay(200);   //wait
 
   RED = analogRead(A0);   //read the LDR sensor
   digitalWrite(3, LOW); // turn off RED led
-  delay(200);
+  delay(500);
 
   // get reading for IR:
   digitalWrite(2, HIGH);
-  delay(25);//wait
+  delay(200);//wait
 
   IR = analogRead(A0);  //read the LDR sensor
   digitalWrite(2, LOW);
-  delay(200);
+  delay(500);
 
   //NDVI calculation:
-  NDVI = (IR - RED ) / (IR + RED);
+  NDVI = float((float(IR) - float(RED)) / (float(IR) + float(RED)));
 
-  Serial.print("NDVI value: ");  // Send data to serial console
-  Serial.println(NDVI);
 
-  delay(500); // delay
+  // Send data to serial console
+
+  Serial.print("IR analog Value: ");
+  Serial.print(IR);
+  Serial.print(", RED analog Value: ");
+  Serial.print(RED);
+  Serial.print(", NDVI value: ");
+  Serial.print(NDVI);
+  Serial.println(" ");
+  Serial.println("-----------------------------------------------------------");
+
+  delay(1000); // delay
 
 }
