@@ -25,3 +25,7 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 _LDR_
 
 ![img1](NDVI-schematics-ldr.jpg)
+<br/>
+**Working Layout**
+<br/>
+![img1](NDVI-working.jpg)
