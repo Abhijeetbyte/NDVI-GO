@@ -8,8 +8,8 @@
 
 //Variables
 
-float IR = 0;
-float RED = 0;
+//float IR = 0;
+//float RED = 0;
 float NDVI = 0;
 
 void setup() {
@@ -21,26 +21,48 @@ void setup() {
   pinMode(RED_led, OUTPUT);
   pinMode(LDR, INPUT);
 
+  Serial.println("NDVI-GO begin successfully !"); // print initialization message
+  Serial.println(" ");
+
+
 
 }
 
 void loop() {
 
   // get reading for RED:
-  digitalWrite(3, HIGH);
-  delay(200);   //wait
 
-  RED = analogRead(A0);   //read the LDR sensor
-  digitalWrite(3, LOW); // turn off RED led
-  delay(500);
+  float RED = 0;
+
+  for (int i = 0; i < 10; i++) {
+
+    digitalWrite(3, HIGH);  // turn on RED led
+    delay(200);   //wait
+
+    RED = RED + analogRead(A0);   //read the LDR sensor
+    digitalWrite(3, LOW); // turn off RED led
+    delay(500);
+  }
+  RED = RED / 10;  // getting average of 10 readings
+
+
 
   // get reading for IR:
-  digitalWrite(2, HIGH);
-  delay(200);//wait
 
-  IR = analogRead(A0);  //read the LDR sensor
-  digitalWrite(2, LOW);
-  delay(500);
+  float IR = 0;
+
+  for (int i = 0; i < 10; i++) {
+
+    digitalWrite(2, HIGH); // turn on IR lED
+    delay(200);//wait
+
+    IR = IR + analogRead(A0);  //read the LDR sensor
+    digitalWrite(2, LOW);
+    delay(500);
+  }
+  IR = IR / 10;  // getting average of 10 readings
+
+
 
   //NDVI calculation:
   NDVI = float((float(IR) - float(RED)) / (float(IR) + float(RED)));
@@ -53,7 +75,7 @@ void loop() {
   Serial.print(", RED analog Value: ");
   Serial.print(RED);
   Serial.print(", NDVI value: ");
-  Serial.print(NDVI);
+  Serial.println(NDVI);
   Serial.println(" ");
   Serial.println("-----------------------------------------------------------");
 
