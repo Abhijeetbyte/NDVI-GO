@@ -32,6 +32,8 @@ void loop() {
 
   // get reading for RED:
 
+  Serial.println("Getting data........");
+
   float RED = 0;
 
   for (int i = 0; i < 10; i++) {
@@ -69,7 +71,8 @@ void loop() {
 
 
   // Send data to serial console
-
+  Serial.println(" ");
+  Serial.println("-----------------------------------------------------------"); // end line formet
   Serial.print("IR analog Value: ");
   Serial.print(IR);
   Serial.print(", RED analog Value: ");
