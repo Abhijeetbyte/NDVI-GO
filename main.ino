@@ -12,6 +12,9 @@
 //float RED = 0;
 float NDVI = 0;
 
+const int IR_Max = 0; // Put Max Value of IR reflectance (Calibration Value)
+const int RED_Max = 0 ; // Put Max Value of RED reflectance (Calibration Value)
+
 void setup() {
 
   // Debug console
@@ -22,8 +25,24 @@ void setup() {
   pinMode(LDR, INPUT);
 
   Serial.println("NDVI-GO begin successfully !"); // print initialization message
+  delay(2000);
   Serial.println(" ");
+  Serial.println("Initializing Calibration....");
+  delay(2000);
 
+  if (RED_Max == 0 && IR_Max == 0) {
+
+    Serial.println(" ");
+    Serial.println("Calibration data not found !");
+    Serial.println("Insert Calibration, data to ( IR_Max, RED_Max )");
+    delay(5000);
+    Serial.println(" ");
+
+  } else {
+    Serial.println("Calibration check 'OK'");
+    delay(1000);
+    Serial.println(" ");
+  }
 
 
 }
@@ -75,11 +94,11 @@ void loop() {
 
   // Preparing raw data
 
-  RED = map(RED, 0, 1023, 0, 100);  // scale it for use (value between 0 and 100)
+  RED = map(RED, 0, RED_Max, 0, 100);  // scale it for use (value between 0 and 100)
 
   RED /= 100;
 
-  IR = map(IR, 0, 1023, 0, 100);
+  IR = map(IR, 0, IR_Max, 0, 100);
 
   IR /= 100;
 
