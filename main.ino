@@ -12,8 +12,8 @@
 //float RED = 0;
 float NDVI = 0;
 
-const int IR_Max = 0; // Put Max Value of IR reflectance (Calibration Value)
-const int RED_Max = 0 ; // Put Max Value of RED reflectance (Calibration Value)
+const float IR_Max = 0; // Put Max Value of IR reflectance (Calibration Value)
+const float RED_Max = 0 ; // Put Max Value of RED reflectance (Calibration Value)
 
 void setup() {
 
@@ -64,7 +64,7 @@ void loop() {
 
     RED = RED + analogRead(A0);  //read the LDR sensor (value between 0 and 1023)
     digitalWrite(3, LOW); // turn off RED led
-    delay(500);
+    delay(100);
 
     Serial.print(".");
   }
@@ -79,11 +79,11 @@ void loop() {
   for (int i = 0; i < 10; i++) {
 
     digitalWrite(2, HIGH); // turn on IR lED
-    delay(200);//wait
+    delay(1000);//wait
 
     IR = IR + analogRead(A0);  //read the LDR sensor (value between 0 and 1023)
     digitalWrite(2, LOW);
-    delay(500);
+    delay(100);
 
     Serial.print(".");
   }
