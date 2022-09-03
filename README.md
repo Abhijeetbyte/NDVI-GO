@@ -14,6 +14,10 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 * LDR  ->  A0 (_analog pin A0_)
 <br/>
 
+### Module
+<br/>
+
+![img1](/Assets/NDVI-module.png)
 
 ### Schematics
 <br/>'
