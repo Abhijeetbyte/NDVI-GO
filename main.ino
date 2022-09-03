@@ -79,7 +79,7 @@ void loop() {
   for (int i = 0; i < 10; i++) {
 
     digitalWrite(2, HIGH); // turn on IR lED
-    delay(1000);//wait
+    delay(200);//wait
 
     IR = IR + analogRead(A0);  //read the LDR sensor (value between 0 and 1023)
     digitalWrite(2, LOW);
