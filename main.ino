@@ -4,7 +4,7 @@
 
 #define RED_led 2 // pin D2
 #define LDR A0 // pin A0
-#define IR A1 //
+#define Ir A1 // pin A1
 
 
 //Variables
@@ -26,9 +26,9 @@ void setup() {
 
   // I/O declaration
 
-  pinMode(RED_led, OUTPUT);
+  pinMode(RED_led, OUTPUT); // delared as output
   pinMode(LDR, INPUT); // delared as input
-  pinMode(IR, INPUT);
+  pinMode(Ir, INPUT);
 
 
   Serial.println("NDVI-GO begin successfully !"); // print initialization message
@@ -41,13 +41,14 @@ void loop() {
 
 
   //  ***************** Measure analog value using cahnnel A0 & A1 ******************
+  
 
   Serial.print("Getting data........"); // print a message
   delay(500);
 
 
   // get reading for IR:
-  ADC_ir = analogRead(A0);  //reads the value of the IR sensor (value between 0 and 1023)
+  ADC_ir = abs(analogRead(A0)-1023);  //reads the value of the IR sensor (value between 0 and 1023)
   delay(1000);
 
 
@@ -55,12 +56,11 @@ void loop() {
   digitalWrite(RED_led, HIGH); // turn on RED lED
 
   delay(200);//wait
-  ADC_red = analogRead(A1);  // reads the value of the LDR
+  ADC_red = abs(analogRead(A1)-1023);  // reads the value of the LDR
   delay(1000);
 
   digitalWrite(RED_led, LOW); // turn off RED lED
 
-}
 
 
 //  *************** Calculate NDVI ******************
@@ -119,4 +119,4 @@ Serial.println("");
 
 delay(500); // delay
 
-}
+} 
