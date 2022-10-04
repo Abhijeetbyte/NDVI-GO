@@ -1,3 +1,33 @@
+/*
+
+This sketch demonstrates a technique for measuring NDVI
+(Normalized Difference Vegetation Index) It has a red LED (630 nm) 
+with Infra-red (tx, rx) and LDR sensor inputs.
+
+The mapping format causes the sensor reading to be between 1 and 100, which 
+is then passed into an NDVI expression.
+The maximum reflectance value of both the sensors is also required in the 
+sketch, for calibration purpose. 
+Can be obtained by sampling the most healthy leaf/plant to obtain the calibration data. 
+Initially, the values ​​are set to 1023 (default), replace those values ​​with the maximum value.
+
+ The circuit:
+ * Analog sensors (LDR and IR) attached to analog input channel A0  & A1
+ * LED attached from digital pin 2 to ground
+
+ created on Aug 15 2022
+ By Abhijeet Kumar
+
+ https://github.com/Abhijeetbyte/NDVI-GO
+
+ This code is in the public domain.
+
+ */
+
+
+
+
+
 // Libraries
 
 #include <SPI.h>
@@ -27,8 +57,8 @@ float NDVI = 0;             //  the ndvi value
 float IR_sensorValue = 0;   // ir sensor value
 float RED_sensorValue = 0;  // ldr sensor value
 
-const int IR_sensorMax = 0;   // maximum reflectance value of IR sensor  (calibration value)
-const int RED_sensorMax = 0;  // maximum reflectance value of LDR sensor (calibration value)
+const int IR_sensorMax = 1023;   // maximum reflectance value of IR sensor  (calibration value)
+const int RED_sensorMax = 1023;  // maximum reflectance value of LDR sensor (calibration value)
 
 
 void setup() {
@@ -45,9 +75,7 @@ void setup() {
   pinMode(LDR_sensorPin, INPUT);
   pinMode(IR_sensorPin, INPUT);
 
-  Serial.println("NDVI-GO begin successfully !");  // print initialization message
-  Serial.println("");
-  Serial.println("Getting data........");
+  Serial.println("NDVI-GO begin successfully");  // print initialization message
   Serial.println("");
 
   // print message to display
@@ -56,6 +84,18 @@ void setup() {
   display.setCursor(15, 15);  // (x,y)
   display.println("NDVI-GO");
   display.display();
+
+  //calibration check !
+  if ((IR_sensorMax == 1023) || (RED_sensorMax == 1023)) {
+    Serial.println("Calibration data not found !");
+    Serial.println("");
+  } else {
+    Serial.println("Calibration data 'OK'");
+    Serial.println("");
+  }
+
+  Serial.println("Getting data........");  // print message
+  Serial.println("");
 
   delay(1000);
 }
@@ -78,11 +118,10 @@ void loop() {
 
 
   // print on console
-  Serial.println(" ");
-  Serial.println("IR sensor Value :");
+  Serial.print("IR sensor Value :");
   Serial.print(IR_sensorValue);
-  Serial.println("RED sensor Value :");
-  Serial.print(RED_sensorValue);
+  Serial.print(", RED sensor Value :");
+  Serial.println(RED_sensorValue);
 
 
 
@@ -106,8 +145,9 @@ void loop() {
 
   // print on console
   Serial.println("");
-  Serial.println("NDVI Value :");
-  Serial.print(NDVI);
+  Serial.print("NDVI Value :");
+  Serial.println(NDVI);
+  Serial.println("");
 
 
   // print to display
@@ -143,6 +183,7 @@ void loop() {
     Serial.println(" ");
   }
 */
+
 
   // delay a little bit
   delay(1000);  // delay
