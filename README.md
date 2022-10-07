@@ -8,38 +8,36 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 ### Wirring connection
 <br/>
 
+**NDVI sensor Module**
 
-* IR led  ->  D2 (_digital pin 2_)
-* RED led  ->  D3 (_digital pin 3_)
-* LDR  ->  A0 (_analog pin A0_)
+* RED Led  ->  D2 (_digital Pin 2_)
+* IR Module ->  A1 (_analog Pin A1_)
+* LDR Module ->  A0 (_analog pin A0_)
+
+**OLED Screen**
+
+* SDA  ->  A4 (_analog Pin A4_)
+* SCL ->  A5 (_analog Pin A5_)
+ 
+ Make a comman _GND_ and _VCC/+5V_
+ 
+ **Note**: IR & LDR module must have analog output
+ 
 <br/>
-
-### Module
-<br/>
-
-![img1](/Assets/NDVI-module.png)
 
 ### Schematics
-<br/>'
 
-![img1](/Assets/NDVI-schematics.jpg)
+![img1](/Assets/Schematic_NDVI-GO_2022-10-08.png)
 
-**Note**: connect LED's with a 220 ohm resistor
-
-_LDR_
-
-![img1](/Assets/NDVI-schematics-ldr.jpg)
-<br/>
 
 ### Working Layout
 
 <br/>
 
-![img1](/Assets/NDVI-working.jpg)
+![img1](/Assets/NDV-Sensor-demo.png)
+
 
 <br/>
-
-![img1](/Assets/NDVi-plant-illustration.jpg)
 
 
 ### Comparison
