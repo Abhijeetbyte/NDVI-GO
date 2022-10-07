@@ -25,10 +25,21 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
  
 <br/>
 
+
+
 ### Schematics
 
 ![img1](/Assets/Schematic_NDVI-GO_2022-10-08.png)
 
+<br/>
+
+#
+
+![img1](/Assets/components.png)
+
+<br/>
+
+#
 
 ### Working Layout
 
