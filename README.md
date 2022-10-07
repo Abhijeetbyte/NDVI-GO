@@ -51,19 +51,19 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 
 <br/>
 
-![img1](/Assets/NDV-expression.jpg)
+<!-- using MathJax library -->
+
+$$NDVI = { NIR  -  Red \over NIR  +  Red}$$
 
 <br/>
 
-### Statement
+* Reflectance of near-infrared (NIR) and red (RED)
+* NDVI value ranges from -1.0 to +1.0
 
-<br/>
+NDVI is a mathematical function of the reflectance values of two wavelengths regions, near-infrared (NIR) and visable (commonly red).
 
-![img1](/Assets/NDVI-statement.jpg)
 
-<br/>
-
-### Scale
+**Scale**
 
 <br/>
 
