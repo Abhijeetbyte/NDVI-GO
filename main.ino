@@ -9,7 +9,7 @@ is then passed into an NDVI expression.
 The maximum reflectance value of both the sensors is also required in the 
 sketch, for calibration purpose. 
 Can be obtained by sampling the most healthy leaf/plant to obtain the calibration data. 
-Initially, the values ​​are set to 1023 (default), replace those values ​​with the maximum value.
+Initially, the values are set to 1023 (default), replace those values with the maximum value.
 
  The circuit:
  * Analog sensors (LDR and IR) attached to analog input channel A0  & A1
@@ -109,11 +109,11 @@ void loop() {
   delay(200);
 
   digitalWrite(RED_ledPin, HIGH);  // turn on RED lED
+ 
   delay(200);
-
   RED_sensorValue = abs(analogRead(LDR_sensorPin) - 1023);  // get reading for RED/LDR
+ 
   delay(200);
-
   digitalWrite(RED_ledPin, LOW);
 
 
