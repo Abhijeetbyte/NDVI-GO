@@ -80,3 +80,11 @@ NDVI is a mathematical function of the reflectance values of two wavelengths reg
 
 ![img1](/Assets/NDVI-scale.jpg)
 
+<br/>
+
+## Reporting Issues & Contributions
+
+Feel free to report <b>[issues](https://github.com/Abhijeetbyte/NDVI-GO/issues/new)</b> and <b>contribute</b> to this repository
+
+<br/>
+
