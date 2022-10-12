@@ -1,28 +1,28 @@
 /*
 
-This sketch demonstrates a technique for measuring NDVI
-(Normalized Difference Vegetation Index) It has a red LED (630 nm) 
-with Infra-red (tx, rx) and LDR sensor inputs.
+  This sketch demonstrates a technique for measuring NDVI
+  (Normalized Difference Vegetation Index) It has a red LED (630 nm)
+  with Infra-red (tx, rx) and LDR sensor inputs.
 
-The mapping format causes the sensor reading to be between 1 and 100, which 
-is then passed into an NDVI expression.
-The maximum reflectance value of both the sensors is also required in the 
-sketch, for calibration purpose. 
-Can be obtained by sampling the most healthy leaf/plant to obtain the calibration data. 
-Initially, the values are set to 1023 (default), replace those values with the maximum value.
+  The mapping format causes the sensor reading to be between 1 and 100, which
+  is then passed into an NDVI expression.
+  The maximum reflectance value of both the sensors is also required in the
+  sketch, for calibration purpose.
+  Can be obtained by sampling the most healthy leaf/plant to obtain the calibration data.
+  Initially, the values are set to 1023 (default), replace those values with the maximum value.
 
- The circuit:
- * Analog sensors (LDR and IR) attached to analog input channel A0  & A1
- * LED attached from digital pin 2 to ground
+  The circuit:
+   Analog sensors (LDR and IR) attached to analog input channel A0  & A1
+   LED attached from digital pin 2 to ground
 
- created on Aug 15 2022
- By Abhijeet Kumar
+  created on Aug 15 2022
+  By Abhijeet Kumar
 
- https://github.com/Abhijeetbyte/NDVI-GO
+  https://github.com/Abhijeetbyte/NDVI-GO
 
- This code is in the public domain.
+  This code is in the public domain.
 
- */
+*/
 
 
 
@@ -109,10 +109,10 @@ void loop() {
   delay(200);
 
   digitalWrite(RED_ledPin, HIGH);  // turn on RED lED
- 
+
   delay(200);
   RED_sensorValue = abs(analogRead(LDR_sensorPin) - 1023);  // get reading for RED/LDR
- 
+
   delay(200);
   digitalWrite(RED_ledPin, LOW);
 
@@ -141,7 +141,7 @@ void loop() {
 
   // calculate NDVI using the calibrated value:
 
-  NDVI = float((float(IR_sensorValue / 100) - float(RED_sensorValue)) / (float(IR_sensorValue) + float(RED_sensorValue)));  // NDVI expression
+  NDVI = float((float(IR_sensorValue / 100) - float(RED_sensorValue / 100)) / (float(IR_sensorValue / 100) + float(RED_sensorValue / 100))); // NDVI expression
 
   // print on console
   Serial.println("");
@@ -155,12 +155,28 @@ void loop() {
   display.setTextSize(2);
   display.setTextColor(WHITE);
   display.setCursor(0, 15);
+  display.println("NIR:");
+  display.setCursor(65, 15);
+  display.println(float(IR_sensorValue / 100));
+  display.display();
+  delay(3000); // wait 3 sec
+
+  display.clearDisplay();  // clear
+  display.setCursor(0, 15);
+  display.println("RED:");
+  display.setCursor(65, 15);
+  display.println(float(RED_sensorValue));
+  display.display();
+  delay(3000);
+
+  display.clearDisplay();  // clear
+  display.setCursor(0, 15);
   display.println("NDVI:");
   display.setCursor(65, 15);
   display.println(NDVI);
   display.display();
 
-  /*
+
   // Remarks :
 
   if (NDVI >= -1 && NDVI <= 0) {  // (-1 to 0)
@@ -182,7 +198,7 @@ void loop() {
     Serial.println("Very healthy plant !");
     Serial.println(" ");
   }
-*/
+
 
 
   // delay a little bit
