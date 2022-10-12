@@ -165,7 +165,7 @@ void loop() {
   display.setCursor(0, 15);
   display.println("RED:");
   display.setCursor(65, 15);
-  display.println(float(RED_sensorValue));
+  display.println(float(RED_sensorValue / 100));
   display.display();
   delay(3000);
 
