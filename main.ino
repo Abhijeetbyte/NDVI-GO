@@ -1,17 +1,15 @@
 /*
+  This sketch demonstrates a technique for measuring NDVI (Normalized Difference Vegetation Index).
+  It has a red LED (630 nm) with Infra-red (tx, rx) and LDR sensor inputs.
 
-  This sketch demonstrates a technique for measuring NDVI
-  (Normalized Difference Vegetation Index) It has a red LED (630 nm)
-  with Infra-red (tx, rx) and LDR sensor inputs.
+  Minimum and maximum reflectance value of both the sensors attached to the sensor pins
+  are also required in the sketch, for calibration purpose.
 
-  The mapping format causes the sensor reading to be between 0 to 1, which
-  is then passed into an NDVI expression.
-  The maximum reflectance value of both the sensors is also required in the
-  sketch, for calibration purpose.
-  Can be obtained by sampling the most healthy leaf/plant and an unhealthy leaf as
-  the calibration data. Use maximum & minimum relectane value of Infra-red & Red
+  These values can be obtained by sampling the most healthy leaf/plant and an unhealthy leaf, use minimum
+  and maximum relectane value of Infra-red and Red.
+  Initially, the values are set to 1023 & 0 (default), replace those values with the mminimum and maximum value.
 
-  Initially, the values are set to 1023 (default), replace those values with the obtained values.
+  Finally the sensor readings are between 0 to 1, which is then passed into an NDVI expression.
 
   The circuit:
    Analog sensors (LDR and IR) attached to analog input channel A0  & A1
@@ -49,10 +47,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 float NDVI = 0;             //  the ndvi value
 float IR_sensorValue = 0;   // ir sensor value
 float RED_sensorValue = 0;  // ldr sensor value
-const int IR_sensorMax = 615;   // maximum reflectance value of IR sensor  (calibration value)
-const int RED_sensorMax = 660;  // maximum reflectance value of LDR sensor (calibration value)
-const int IR_sensorMin = 510;  // minimum reflectance value of IR sensor  (calibration value)
-const int RED_sensorMin = 630;  // minimum reflectance value of LDR sensor (calibration value)
+const int IR_sensorMax = 1023;   // maximum reflectance value of IR sensor  (calibration value)
+const int RED_sensorMax = 1023;  // maximum reflectance value of LDR sensor (calibration value)
+const int IR_sensorMin = 0;  // minimum reflectance value of IR sensor  (calibration value)
+const int RED_sensorMin = 0;  // minimum reflectance value of LDR sensor (calibration value)
 
 void setup() {
 
@@ -90,16 +88,17 @@ void loop() {
   // get reading for IR:
   IR_sensorValue = abs(analogRead(IR_sensorPin) - 1023); //read the LDR sensor
   delay(200);
-  // send data to serial
-  Serial.print("IR sensor Value :");
-  Serial.print(IR_sensorValue);
 
   // get reading for RED:
   digitalWrite(RED_ledPin, HIGH);  // turn on RED lED
   delay(200); //wait for LDR sensor to stabalize
+
   RED_sensorValue = abs(analogRead(LDR_sensorPin) - 1023); //read the LDR sensor
   digitalWrite(RED_ledPin, LOW);
 
+  // send data to serial
+  Serial.print("IR sensor Value :");
+  Serial.print(IR_sensorValue);
   Serial.print(", RED sensor Value :");
   Serial.println(RED_sensorValue);
 
@@ -110,9 +109,9 @@ void loop() {
   IR_sensorValue = constrain(IR_sensorValue, 0, 100);  // in case the sensor value is outside the range seen during calibration
   IR_sensorValue = IR_sensorValue / 100; // (0 - 1)
 
-  RED_sensorValue = map(RED_sensorValue, IR_sensorMin, RED_sensorMax, 0, 100);
+  RED_sensorValue = map(RED_sensorValue, RED_sensorMin, RED_sensorMax, 0, 100);
   RED_sensorValue = constrain(RED_sensorValue, 0, 100);
-  RED_sensorValue = RED_sensorValue / 100; // (0 - 1)
+  RED_sensorValue = RED_sensorValue / 100;
 
   //debug value
   //Serial.println("");
