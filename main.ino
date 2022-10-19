@@ -9,9 +9,9 @@
   The maximum reflectance value of both the sensors is also required in the
   sketch, for calibration purpose.
   Can be obtained by sampling the most healthy leaf/plant and an unhealthy leaf as
-  the calibration data. Use maximum relectane value of Infra-red in case of healthy leaf and
-  Red max reflectance value of unhealthy leaf in place of Red max reflectance value.
-  Initially, the values are set to 1023 (default), replace those values with the maximum value.
+  the calibration data. Use maximum & minimum relectane value of Infra-red & Red
+
+  Initially, the values are set to 1023 (default), replace those values with the obtained values.
 
   The circuit:
    Analog sensors (LDR and IR) attached to analog input channel A0  & A1
@@ -49,9 +49,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 float NDVI = 0;             //  the ndvi value
 float IR_sensorValue = 0;   // ir sensor value
 float RED_sensorValue = 0;  // ldr sensor value
-const int IR_sensorMax = 1023;   // maximum reflectance value of IR sensor  (calibration value)
-const int RED_sensorMax = 1023;  // maximum reflectance value of LDR sensor (calibration value)
-
+const int IR_sensorMax = 615;   // maximum reflectance value of IR sensor  (calibration value)
+const int RED_sensorMax = 660;  // maximum reflectance value of LDR sensor (calibration value)
+const int IR_sensorMin = 510;  // minimum reflectance value of IR sensor  (calibration value)
+const int RED_sensorMin = 630;  // minimum reflectance value of LDR sensor (calibration value)
 
 void setup() {
 
@@ -105,21 +106,21 @@ void loop() {
 
   // Apply the calibration to the sensor reading:
 
-  IR_sensorValue = map(IR_sensorValue, 0, IR_sensorMax, 0, 100);  // (0 - 100)
+  IR_sensorValue = map(IR_sensorValue, IR_sensorMin, IR_sensorMax, 0, 100);  // (0 - 100)
   IR_sensorValue = constrain(IR_sensorValue, 0, 100);  // in case the sensor value is outside the range seen during calibration
   IR_sensorValue = IR_sensorValue / 100; // (0 - 1)
 
-  RED_sensorValue = map(RED_sensorValue, 0, RED_sensorMax, 0, 100);
+  RED_sensorValue = map(RED_sensorValue, IR_sensorMin, RED_sensorMax, 0, 100);
   RED_sensorValue = constrain(RED_sensorValue, 0, 100);
   RED_sensorValue = RED_sensorValue / 100; // (0 - 1)
 
   //debug value
-  //  Serial.println("");
-  //  Serial.print("NIR :");
-  //  Serial.print(IR_sensorValue);
-  //  Serial.print(" , RED :");
-  //  Serial.print(RED_sensorValue);
-  //  Serial.println("");
+  //Serial.println("");
+  //Serial.print("NIR :");
+  // Serial.print(IR_sensorValue);
+  //Serial.print(" , RED :");
+  //Serial.print(RED_sensorValue);
+  // Serial.println("");
 
 
   // Calculate NDVI using the calibrated value:
@@ -174,7 +175,7 @@ void loop() {
     Serial.println("Moderatly healthy plant !");
     Serial.println(" ");
   }
-  else if (NDVI >= 0.66 && NDVI <= 0.33) {  // (0.66 to 1)
+  else if (NDVI >= 0.66 && NDVI <= 1.00) {  // (0.66 to 1)
     Serial.println("Very healthy plant !");
     Serial.println(" ");
   }
