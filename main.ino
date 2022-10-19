@@ -86,11 +86,11 @@ void loop() {
   // Read the sensors:
 
   // get reading for IR:
-  IR_sensorValue = abs(analogRead(IR_sensorPin) - 1023); //read the LDR sensor
+  IR_sensorValue = abs(analogRead(IR_sensorPin) - 1023); //read the IR sensor
   delay(200);
 
   // get reading for RED:
-  digitalWrite(RED_ledPin, HIGH);  // turn on RED lED
+  digitalWrite(RED_ledPin, HIGH);  // turn on RED led
   delay(200); //wait for LDR sensor to stabalize
 
   RED_sensorValue = abs(analogRead(LDR_sensorPin) - 1023); //read the LDR sensor
