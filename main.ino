@@ -13,7 +13,7 @@
 
   The circuit:
    Analog sensors (LDR and IR) attached to analog input channel A0  & A1
-   LED attached from digital pin 2 to ground
+   RED LED attached from digital pin 10 to ground and IR LED attached from digital pin 9 to ground.
 
   created on Aug 15 2022
   By Abhijeet Kumar
