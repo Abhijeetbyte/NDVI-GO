@@ -10,9 +10,10 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 
 **NDVI sensor Module**
 
-* RED Led  ->  D2 (_digital Pin 2_)
-* IR Module ->  A1 (_analog Pin A1_)
-* LDR Module ->  A0 (_analog pin A0_)
+* IR Led  ->  D9 (_digital Pin 9_)
+* RED Led  ->  D10 (_digital Pin 10_)
+* IR Sensor ->  A1 (_analog Pin A1_)
+* LDR Sensor ->  A0 (_analog pin A0_)
 
 **OLED Screen**
 
@@ -29,13 +30,13 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 
 ### Schematics
 
-![img1](/Assets/Schematic_NDVI-GO_2022-10-08.png)
+![img1](/Assets/Schematic_NDVI-GO_2022-10-21.png)
 
 <br/>
 
 #
 
-![img1](/Assets/components.png)
+![img1](/Assets/components.jpg)
 
 <br/>
 
