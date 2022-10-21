@@ -39,7 +39,8 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // GPIO
-#define RED_ledPin 2      // pin D2
+#define IR_ledPin 9      // pin D9
+#define RED_ledPin 10      // pin D10
 #define LDR_sensorPin A0  // pin A0
 #define IR_sensorPin A1   // pin A1
 
@@ -47,10 +48,13 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 float NDVI = 0;             //  the ndvi value
 float IR_sensorValue = 0;   // ir sensor value
 float RED_sensorValue = 0;  // ldr sensor value
+
 const int IR_sensorMax = 1023;   // maximum reflectance value of IR sensor  (calibration value)
 const int RED_sensorMax = 1023;  // maximum reflectance value of LDR sensor (calibration value)
 const int IR_sensorMin = 0;  // minimum reflectance value of IR sensor  (calibration value)
 const int RED_sensorMin = 0;  // minimum reflectance value of LDR sensor (calibration value)
+
+
 
 void setup() {
 
@@ -59,9 +63,10 @@ void setup() {
 
   //Dislay begin
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);  // Display type, I2C address
-  display.clearDisplay();                               // clear
+  display.clearDisplay(); // clear
 
   // I/O declaration
+  pinMode(IR_ledPin, OUTPUT);
   pinMode(RED_ledPin, OUTPUT);
   pinMode(LDR_sensorPin, INPUT);
   pinMode(IR_sensorPin, INPUT);
@@ -81,20 +86,26 @@ void setup() {
   delay(1000);
 }
 
+
+
 void loop() {
 
   // Read the sensors:
 
   // get reading for IR:
-  IR_sensorValue = abs(analogRead(IR_sensorPin) - 1023); //read the IR sensor
+  digitalWrite(IR_ledPin, HIGH);  // turn on IR led
+  delay(200); //wait for IR sensor to stabalize
+  IR_sensorValue = analogRead(IR_sensorPin); //read the IR sensor
+  delay(200);
+  digitalWrite(IR_ledPin, LOW);  // turn off IR led
   delay(200);
 
   // get reading for RED:
   digitalWrite(RED_ledPin, HIGH);  // turn on RED led
   delay(200); //wait for LDR sensor to stabalize
-
-  RED_sensorValue = abs(analogRead(LDR_sensorPin) - 1023); //read the LDR sensor
-  digitalWrite(RED_ledPin, LOW);
+  RED_sensorValue = analogRead(LDR_sensorPin); //read the LDR sensor
+  delay(200);
+  digitalWrite(RED_ledPin, LOW);  // turn off IR led
 
   // send data to serial
   Serial.print("IR sensor Value :");
@@ -116,9 +127,9 @@ void loop() {
   //debug value
   //Serial.println("");
   //Serial.print("NIR :");
-  // Serial.print(IR_sensorValue);
-  //Serial.print(" , RED :");
-  //Serial.print(RED_sensorValue);
+  //Serial.print(IR_sensorValue);
+  // Serial.print(" , RED :");
+  // Serial.print(RED_sensorValue);
   // Serial.println("");
 
 
