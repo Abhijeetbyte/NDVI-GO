@@ -176,18 +176,56 @@ void loop() {
   if (NDVI >= -1 && NDVI <= 0) {  // (-1 to 0)
     Serial.println("Dead plant or Inanimate object !");
     Serial.println(" ");
+
+    //oled display
+    display.clearDisplay();  // clear
+    display.setTextSize(1);
+    display.setCursor(0, 15);
+    display.println("Dead plant or");
+    display.setCursor(0, 35);
+    display.println("Inanimate object !");
+    display.display();
+    delay(5000);
   }
   else if (NDVI >= 0 && NDVI <= 0.33) {  // (0 to 0.33)
     Serial.println("Unhealthy plant !");
     Serial.println(" ");
+
+    //oled display
+    display.clearDisplay();  // clear
+    display.setTextSize(1);
+    display.setCursor(0, 15);
+    display.println("Unhealthy plant !");
+    display.display();
+    delay(5000);
   }
   else if (NDVI >= 0.33 && NDVI <= 0.66) {  // (0.33 to 0.66)
     Serial.println("Moderatly healthy plant !");
     Serial.println(" ");
+
+    //oled display
+    display.clearDisplay();  // clear
+    display.setTextSize(1);
+    display.setCursor(0, 15);
+    display.println("Moderatly healthy");
+    display.setCursor(0, 35);
+    display.println("plant !");
+    display.display();
+    delay(5000);
   }
   else if (NDVI >= 0.66 && NDVI <= 1.00) {  // (0.66 to 1)
     Serial.println("Very healthy plant !");
     Serial.println(" ");
+
+    //oled display
+    display.clearDisplay();  // clear
+    display.setTextSize(1);
+    display.setCursor(0, 15);
+    display.println("Very healthy");
+    display.setCursor(0, 35);
+    display.println("plant !");
+    display.display();
+    delay(5000);
   }
 
   Serial.println("---------------------------------------------------------"); // end line
