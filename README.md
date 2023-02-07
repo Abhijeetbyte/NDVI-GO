@@ -10,10 +10,9 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 
 **NDVI sensor Module**
 
-* IR Led  ->  D9 (_digital Pin 9_)
-* RED Led  ->  D10 (_digital Pin 10_)
-* IR Sensor ->  A1 (_analog Pin A1_)
-* LDR Sensor ->  A0 (_analog pin A0_)
+* RED Led  ->  D2 (_digital Pin 2_)
+* IR Module ->  A1 (_analog Pin A1_)
+* LDR Module ->  A0 (_analog pin A0_)
 
 **OLED Screen**
 
@@ -30,13 +29,13 @@ Upload this [file](main.ino) to your arduino board, and open Serial monitor to s
 
 ### Schematics
 
-![img1](/Assets/Schematic_NDVI-GO_2022-10-21.png)
+![img1](/Assets/Schematic_NDVI-GO_2022-10-08.png)
 
 <br/>
 
 #
 
-![img1](/Assets/components.jpg)
+![img1](/Assets/components.png)
 
 <br/>
 
@@ -88,4 +87,3 @@ NDVI is a mathematical function of the reflectance values of two wavelengths reg
 Feel free to report <b>[issues](https://github.com/Abhijeetbyte/NDVI-GO/issues/new)</b> and <b>contribute</b> to this repository
 
 <br/>
-
