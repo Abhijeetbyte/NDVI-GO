@@ -13,7 +13,7 @@
 
   The circuit:
    Analog sensors (LDR and IR) attached to analog input channel A0  & A1
-   RED LED attached from digital pin 10 to ground and IR LED attached from digital pin 9 to ground.
+   LED attached from digital pin 2 to ground
 
   created on Aug 15 2022
   By Abhijeet Kumar
@@ -39,8 +39,7 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // GPIO
-#define IR_ledPin 9      // pin D9
-#define RED_ledPin 10      // pin D10
+#define RED_ledPin 2      // pin D2
 #define LDR_sensorPin A0  // pin A0
 #define IR_sensorPin A1   // pin A1
 
@@ -48,13 +47,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 float NDVI = 0;             //  the ndvi value
 float IR_sensorValue = 0;   // ir sensor value
 float RED_sensorValue = 0;  // ldr sensor value
-
 const int IR_sensorMax = 1023;   // maximum reflectance value of IR sensor  (calibration value)
 const int RED_sensorMax = 1023;  // maximum reflectance value of LDR sensor (calibration value)
 const int IR_sensorMin = 0;  // minimum reflectance value of IR sensor  (calibration value)
 const int RED_sensorMin = 0;  // minimum reflectance value of LDR sensor (calibration value)
-
-
 
 void setup() {
 
@@ -63,10 +59,9 @@ void setup() {
 
   //Dislay begin
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);  // Display type, I2C address
-  display.clearDisplay(); // clear
+  display.clearDisplay();                               // clear
 
   // I/O declaration
-  pinMode(IR_ledPin, OUTPUT);
   pinMode(RED_ledPin, OUTPUT);
   pinMode(LDR_sensorPin, INPUT);
   pinMode(IR_sensorPin, INPUT);
@@ -86,26 +81,20 @@ void setup() {
   delay(1000);
 }
 
-
-
 void loop() {
 
   // Read the sensors:
 
   // get reading for IR:
-  digitalWrite(IR_ledPin, HIGH);  // turn on IR led
-  delay(200); //wait for IR sensor to stabalize
-  IR_sensorValue = analogRead(IR_sensorPin); //read the IR sensor
-  delay(200);
-  digitalWrite(IR_ledPin, LOW);  // turn off IR led
+  IR_sensorValue = abs(analogRead(IR_sensorPin) - 1023); //read the IR sensor
   delay(200);
 
   // get reading for RED:
   digitalWrite(RED_ledPin, HIGH);  // turn on RED led
   delay(200); //wait for LDR sensor to stabalize
-  RED_sensorValue = analogRead(LDR_sensorPin); //read the LDR sensor
-  delay(200);
-  digitalWrite(RED_ledPin, LOW);  // turn off IR led
+
+  RED_sensorValue = abs(analogRead(LDR_sensorPin) - 1023); //read the LDR sensor
+  digitalWrite(RED_ledPin, LOW);
 
   // send data to serial
   Serial.print("IR sensor Value :");
@@ -127,9 +116,9 @@ void loop() {
   //debug value
   //Serial.println("");
   //Serial.print("NIR :");
-  //Serial.print(IR_sensorValue);
-  // Serial.print(" , RED :");
-  // Serial.print(RED_sensorValue);
+  // Serial.print(IR_sensorValue);
+  //Serial.print(" , RED :");
+  //Serial.print(RED_sensorValue);
   // Serial.println("");
 
 
@@ -176,56 +165,18 @@ void loop() {
   if (NDVI >= -1 && NDVI <= 0) {  // (-1 to 0)
     Serial.println("Dead plant or Inanimate object !");
     Serial.println(" ");
-
-    //oled display
-    display.clearDisplay();  // clear
-    display.setTextSize(1);
-    display.setCursor(0, 15);
-    display.println("Dead plant or");
-    display.setCursor(0, 35);
-    display.println("Inanimate object !");
-    display.display();
-    delay(5000);
   }
   else if (NDVI >= 0 && NDVI <= 0.33) {  // (0 to 0.33)
     Serial.println("Unhealthy plant !");
     Serial.println(" ");
-
-    //oled display
-    display.clearDisplay();  // clear
-    display.setTextSize(1);
-    display.setCursor(0, 15);
-    display.println("Unhealthy plant !");
-    display.display();
-    delay(5000);
   }
   else if (NDVI >= 0.33 && NDVI <= 0.66) {  // (0.33 to 0.66)
     Serial.println("Moderatly healthy plant !");
     Serial.println(" ");
-
-    //oled display
-    display.clearDisplay();  // clear
-    display.setTextSize(1);
-    display.setCursor(0, 15);
-    display.println("Moderatly healthy");
-    display.setCursor(0, 35);
-    display.println("plant !");
-    display.display();
-    delay(5000);
   }
   else if (NDVI >= 0.66 && NDVI <= 1.00) {  // (0.66 to 1)
     Serial.println("Very healthy plant !");
     Serial.println(" ");
-
-    //oled display
-    display.clearDisplay();  // clear
-    display.setTextSize(1);
-    display.setCursor(0, 15);
-    display.println("Very healthy");
-    display.setCursor(0, 35);
-    display.println("plant !");
-    display.display();
-    delay(5000);
   }
 
   Serial.println("---------------------------------------------------------"); // end line
